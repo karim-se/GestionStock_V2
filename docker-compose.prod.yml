@@ -38,7 +38,7 @@ services:
     container_name: laravel-db_GS_V2_prod
     restart: always
     environment:
-      MYSQL_DATABASE: laravel
+      MYSQL_DATABASE: GestionStock_Docker_V2
       # En production, il est préférable de passer les mots de passe via des vraies variables d'environnement sur le serveur
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-root}" 
       MYSQL_PASSWORD: "${DB_PASSWORD:-laravel}"

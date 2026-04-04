@@ -31,7 +31,7 @@ services:
     container_name: laravel-db_GS_V2
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: laravel
+      MYSQL_DATABASE: GestionStock_Docker_V2
       MYSQL_ROOT_PASSWORD: root
       MYSQL_PASSWORD: laravel
       MYSQL_USER: laravel
