@@ -1,0 +1,58 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app_GS_V2_prod
+    restart: always
+    working_dir: /var/www
+    # Le volume du code source (- ./:/var/www) est retiré. 
+    # Le code doit être copié dans l'image lors du build via votre Dockerfile.
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+    networks:
+      - laravel
+    # Commande pour forcer la mise en cache au démarrage du conteneur
+    command: >
+      sh -c "php artisan config:cache && 
+             php artisan route:cache && 
+             php artisan view:cache && 
+             php-fpm"
+
+  nginx:
+    image: nginx:alpine
+    container_name: laravel-nginx_GS_V2_prod
+    restart: always
+    ports:
+      - "80:80"  # Port HTTP standard pour la production
+    volumes:
+      # Nginx n'a besoin de lire que les fichiers statiques publics
+      - ./public:/var/www/public:ro  
+      - ./docker/nginx:/etc/nginx/conf.d:ro # ro = Read Only (Lecture seule)
+    networks:
+      - laravel
+
+  db:
+    image: mysql:8.0
+    container_name: laravel-db_GS_V2_prod
+    restart: always
+    environment:
+      MYSQL_DATABASE: laravel
+      # En production, il est préférable de passer les mots de passe via des vraies variables d'environnement sur le serveur
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-root}" 
+      MYSQL_PASSWORD: "${DB_PASSWORD:-laravel}"
+      MYSQL_USER: laravel
+    volumes:
+      - dbdata_prod:/var/lib/mysql
+    # Le bloc 'ports: - "3307:3306"' a été supprimé pour sécuriser la base de données.
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
+
+volumes:
+  dbdata_prod:
+    driver: local

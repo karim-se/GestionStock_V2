@@ -1,0 +1,85 @@
+
+table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        margin: 20px auto;
+        width: 60%;
+        width: 50%;
+}
+
+td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background-color: #4a57e6;
+        color: white;
+}
+
+#SupprimerForm{
+        display: none;
+        border: 1px solid black;
+        width: 350px;
+        height: 100px;
+        text-align: center;
+        position: fixed; 
+        z-index: 1000; 
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        background-color: white;
+}
+
+
+.SupprimButton{
+        background-color:red;
+        color:white;
+
+}
+
+.ValidButton{
+        background-color:red;
+        color:white;
+}
+
+.CancelButton{
+        background-color:rgb(64, 181, 65);
+        color:white;
+}
+
+
+
+
+
+.ButtonAddArticle {
+ 
+        background-color: #4ae690;
+        border: 1px solid rgba(27, 31, 35, .15);
+        border-radius: 6px;
+        color: #fff;
+        display: inline-block;
+        font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        padding: 6px 16px;
+        text-align: center;
+        text-decoration: none;
+        
+  
+}
+
+
+
+
+
+
+
