@@ -1,56 +1,51 @@
 services:
-  app:
+  # L'application Laravel (PHP-FPM)
+  app_prod:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: laravel-app_GS_V2_prod
+    container_name: laravel-app_GS_PROD
     restart: always
     working_dir: /var/www
-    # Le volume du code source (- ./:/var/www) est retiré. 
-    # Le code doit être copié dans l'image lors du build via votre Dockerfile.
-    environment:
-      - APP_ENV=production
-      - APP_DEBUG=false
+    env_file:
+      - .env.prod  # Force l'utilisation du fichier de production
+    volumes:
+      - ./:/var/www
     networks:
-      - laravel
-    # Commande pour forcer la mise en cache au démarrage du conteneur
-    command: >
-      sh -c "php artisan config:cache && 
-             php artisan route:cache && 
-             php artisan view:cache && 
-             php-fpm"
+      - laravel_prod
 
-  nginx:
+  # Le serveur Web Nginx
+  nginx_prod:
     image: nginx:alpine
-    container_name: laravel-nginx_GS_V2_prod
+    container_name: laravel-nginx_GS_PROD
     restart: always
     ports:
-      - "80:80"  # Port HTTP standard pour la production
+      - "9000:80"  # Accès via http://localhost:9000 (différent de ton 8001 de dev)
     volumes:
-      # Nginx n'a besoin de lire que les fichiers statiques publics
-      - ./public:/var/www/public:ro  
-      - ./docker/nginx:/etc/nginx/conf.d:ro # ro = Read Only (Lecture seule)
+      - ./:/var/www
+      - ./docker/nginx/prod.conf:/etc/nginx/conf.d/default.conf
     networks:
-      - laravel
+      - laravel_prod
+    depends_on:
+      - app_prod
 
-  db:
+  # La base de données de Production
+  db_prod:
     image: mysql:8.0
-    container_name: laravel-db_GS_V2_prod
+    container_name: laravel-db_GS_PROD
     restart: always
     environment:
-      MYSQL_DATABASE: GestionStock_Docker_V2
-      # En production, il est préférable de passer les mots de passe via des vraies variables d'environnement sur le serveur
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-root}" 
-      MYSQL_PASSWORD: "${DB_PASSWORD:-laravel}"
-      MYSQL_USER: laravel
+      MYSQL_DATABASE: GestionStock_PROD # Base de données différente du dev
+      MYSQL_ROOT_PASSWORD: root
     volumes:
-      - dbdata_prod:/var/lib/mysql
-    # Le bloc 'ports: - "3307:3306"' a été supprimé pour sécuriser la base de données.
+      - dbdata_prod:/var/lib/mysql # Volume séparé pour ne pas mélanger les données
+    ports:
+      - "3308:3306" # Port 3308 (car ton dev utilise déjà 3307)
     networks:
-      - laravel
+      - laravel_prod
 
 networks:
-  laravel:
+  laravel_prod:
     driver: bridge
 
 volumes:
