@@ -14,7 +14,7 @@
 
 <body>
 
-    <a href="{{route("Articles.create")}}" class="ButtonAddArticle">Ajouter nouveau Article finale test de merde</a>    
+    <a href="{{route("Articles.create")}}" class="ButtonAddArticle">Ajouter nouveau Article finale test de merde chkopi</a>    
 
     <table>
         <tr>  
