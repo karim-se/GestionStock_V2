@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
 
-    @vite('resources/css/Articles/ListeArticles.css')
-    @vite('resources/js/Articles/ListeArticles.js')
-</head>
+<x-layout>
+
+    @push('styles')
+        @vite('resources/css/Articles/ListeArticles.css')
+    @endpush
+  
 
 
 
-<body>
+
+
 
     <a href="{{route("Articles.create")}}" class="ButtonAddArticle">Ajouter nouveau Article </a>    
 
@@ -31,7 +28,7 @@
             
                 <td> {{$article->NomArticle}} </td>
                 <td> {{$article->CodeArticle}} </td>
-                <td> {{$article->Description}}
+                <td> {{$article->Description}} </td>
                 <td> {{$article->categorie->NomCategorie}} </td>
                 <td>
                     <input class=SupprimButton type="button" Value="Supprimer" onclick=ShowDeleteWindow('{{$article->articleID}}')>
@@ -58,6 +55,8 @@
     </form>    
 
 
+    @push('scripts')
+      @vite('resources/js/Articles/ListeArticles.js')
+    @endpush
     
-</body>
-</html>
+</x-layout>

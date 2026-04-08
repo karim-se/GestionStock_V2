@@ -20,15 +20,17 @@ tr:hover {background-color: #ddd;}
 th {
         padding-top: 12px;
         padding-bottom: 12px;
-        background-color: #4a57e6;
+        background-color: #1F2937;
         color: white;
 }
 
 #SupprimerForm{
         display: none;
         border: 1px solid black;
-        width: 350px;
-        height: 100px;
+        border-radius: 4px;
+        padding: 20px;
+        width: 400px;
+        height: 120px;
         text-align: center;
         position: fixed; 
         z-index: 1000; 
@@ -36,23 +38,42 @@ th {
         top: 50%;
         left: 50%;
         background-color: white;
+        
 }
 
 
 .SupprimButton{
         background-color:red;
         color:white;
+        padding: 4px; 
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+
+        
 
 }
 
 .ValidButton{
         background-color:red;
         color:white;
+        padding: 4px; 
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 20%;
+        margin:5px;
+        margin-top: 20px;
 }
 
 .CancelButton{
         background-color:rgb(64, 181, 65);
         color:white;
+        padding: 4px; 
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 20%;
+        margin:5px;
+        margin-top: 20px;
 }
 
 
@@ -61,7 +82,7 @@ th {
 
 .ButtonAddArticle {
  
-        background-color: #4a57e6;
+        background-color: #1F2937;
         border: 1px solid rgba(27, 31, 35, .15);
         border-radius: 6px;
         color: #fff;
