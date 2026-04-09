@@ -30,8 +30,9 @@
                 <td> {{$article->CodeArticle}} </td>
                 <td> {{$article->Description}} </td>
                 <td> {{$article->categorie->NomCategorie}} </td>
-                <td>
-                    <input class=SupprimButton type="button" Value="Supprimer" onclick=ShowDeleteWindow('{{$article->articleID}}')>
+                <td class="boutons-container">
+                    <input class="SupprimButton" type="button" Value="Supprimer" onclick=ShowDeleteWindow('{{$article->articleID}}')>
+                   <a class="ModifButton" href={{route("Articles.edit", $article->articleID)}}>Modifier</a>
                     
                 </td>
 

@@ -64,7 +64,9 @@ class ArticleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $article=Article::find($id);
+        $categories=Categorie::all();
+        return view("Articles/Modifier_Article", compact("article", "categories"));
     }
 
     /**
@@ -73,6 +75,12 @@ class ArticleController extends Controller
     public function update(Request $request, string $id)
     {
         //
+      
+        $article=Article::find($id);
+         $article->update($request->all());
+
+         return redirect()->route("Articles.index");
+
     }
 
     /**
