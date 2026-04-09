@@ -11,7 +11,7 @@
 
 
 
-    <a href="{{route("Articles.create")}}" class="ButtonAddArticle">Ajouter nouveau Article test </a>    
+    <a href="{{route("Articles.create")}}" class="ButtonAddArticle">Ajouter nouveau Article </a>    
 
     <table>
         <tr>  
