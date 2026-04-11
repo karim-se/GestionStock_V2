@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommandesAchats\CommandeAchatController;
+use App\Http\Controllers\CommandesAchats\DetaillesCommandeAchatController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,6 +13,8 @@ Route::get('/', function () {
 
 
 Route::resource("Articles", ArticleController::class);   
+Route::resource("CommandesAchats", CommandeAchatController::class);
+Route::resource("DetaillesCommandeAchats",DetaillesCommandeAchatController::class);
 
 
 

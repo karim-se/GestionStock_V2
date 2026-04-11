@@ -39,14 +39,16 @@ class ArticleController extends Controller
     {
         //
 
-      
-        Article::create([
+         // Validation des données
+            $validated = $request->validate([
+                'NomArticle'   => 'required|string|max:255',
+                'CategorieID'  => 'required|exists:categorie,id',
+                'CodeArticle'  => 'required|string|max:100|unique:articles,CodeArticle',
+                'Description'  => 'nullable|string',
+            ]);
 
-        "NomArticle"=>$request["NomArticle"],
-        "CategorieID"=>$request["CategorieID"],
-        "CodeArticle"=>$request["CodeArticle"],
-        "Description"=>$request["Description"]
-        ]);
+            // Création de l'article
+            Article::create($validated);
 
          return redirect()->route('Articles.index'); 
     }
