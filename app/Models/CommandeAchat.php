@@ -54,6 +54,6 @@ class CommandeAchat extends Model
 
 	public function detailcommandeachats()
 	{
-		return $this->hasMany(Detailcommandeachat::class, 'CommandeAchatID');
+		return $this->hasMany(Detailcommandeachat::class ,'CommandeAchatID');
 	}
 }

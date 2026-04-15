@@ -8,7 +8,9 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js',
                    'resources/css/Articles/ListeArticles.css',
-                    'resources/js/Articles/ListeArticles.js'
+                    'resources/js/Articles/ListeArticles.js',
+                    "resources/css/CommandesAchats/ListeAchats.css",
+                    "resources/js/CommandesAchats/ListeAchats.js"
                     
             ],
             refresh: true,

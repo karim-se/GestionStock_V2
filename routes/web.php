@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 Route::resource("Articles", ArticleController::class);   
 Route::resource("CommandesAchats", CommandeAchatController::class);
-Route::resource("DetaillesCommandeAchats",DetaillesCommandeAchatController::class);
+Route::resource("CommandesAchats.DetaillesCommandeAchats",DetaillesCommandeAchatController::class)->shallow();
 
 
 

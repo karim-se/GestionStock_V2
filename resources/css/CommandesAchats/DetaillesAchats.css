@@ -105,7 +105,7 @@ th {
         border: 1px solid rgba(27, 31, 35, .15);
         border-radius: 6px;
         color: #fff;
-        display: inline-block;
+        
         font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
         font-size: 14px;
         font-weight: 600;
@@ -113,12 +113,32 @@ th {
         padding: 6px 16px;
         text-align: center;
         text-decoration: none;
+        float: right;
+        margin-top: 30px;
         
   
 }
 
 
 
+.Commande-info{
+    display: inline-block;     
+    background-color: #f9fafb;
+    padding: 12px 16px;
+    border-left: 4px solid #1F2937;;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #2d3748;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    margin-right: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.Commande-info strong {
+    color: #1a202c;
+    margin-right: 5px;
+}
 
 
 

@@ -32,7 +32,7 @@
               <td>{{ $commandeachat->fournisseur->NomFournisseur}}</td>
               <td>{{ $commandeachat->etat->etat }}</td>
               <td>{{ $commandeachat->DateCommande }}</td>
-              <td><a href ="{{route("CommandesAchats.show",$commandeachat->CommandeAchatID )}}"> 👁️ Voir Détailles</a></td>
+              <td><a href ="{{route("CommandesAchats.DetaillesCommandeAchats.index",["CommandesAchat"=>$commandeachat->CommandeAchatID] )}}"> 👁️ Voir Détailles</a></td>
               <td class="boutons-container">
                     <input class="SupprimButton" type="button" Value="Supprimer" onclick=ShowDeleteWindow('{{$commandeachat->CommandeAchatID}}')>
                     <a class="ModifButton" href={{route("CommandesAchats.edit", $commandeachat->CommandeAchatID)}}>Modifier</a>

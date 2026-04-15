@@ -2,7 +2,7 @@
 <x-layout>
 
     @push('styles')
-        @vite('resources/css/CommandesAchats/ListeAchats.css')
+        @vite('resources/css/CommandesAchats/DetaillesAchats.css')
     @endpush
   
 
@@ -11,7 +11,21 @@
 
 
 
-    <a href="{{route("CommandesAchats.create")}}" class="ButtonAddArticle">Ajouter nouveau Achat </a>    
+   
+    
+    
+    <p class="Commande-info">
+    <strong>Nom Fournisseur :</strong>
+    {{$CommandesAchat->fournisseur->NomFournisseur}}
+</p>
+
+ <p class="Commande-info">
+    <strong>Etat Commande :</strong>
+    {{$CommandesAchat->etat->etat}}
+</p>
+
+
+<a href="{{route("CommandesAchats.DetaillesCommandeAchats.create", $CommandesAchat->CommandeAchatID)}}" class="ButtonAddArticle">Ajouter Article à la commande </a>    
 
     
     <table>
@@ -60,7 +74,7 @@
 
 
     @push('scripts')
-      @vite('resources/js/CommandesAchats/ListeAchats.js')
+      @vite('resources/js/CommandesAchats/DetaillesAchats.js')
     @endpush
     
 </x-layout>

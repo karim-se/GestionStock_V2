@@ -7,15 +7,22 @@ use Illuminate\Http\Request;
 
 use App\Models\CommandeAchat;
 use App\Models\Detailcommandeachat;
+use App\Models\Article;
 
 class DetaillesCommandeAchatController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($CommandeAchatID)
+    public function index(CommandeAchat $CommandesAchat)
     {
         //
+
+        
+        $detaillesCommandesAchats=$CommandesAchat->detailcommandeachats;
+        
+
+         return view("CommandesAchats/DetaillesCommande/ListeDetailles", compact("CommandesAchat","detaillesCommandesAchats"));
        
       
     }
@@ -23,17 +30,29 @@ class DetaillesCommandeAchatController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($commandeAchatId)
     {
         //
+        $commandeAchat=CommandeAchat::find($commandeAchatId);
+        $articles=Article::all();
+
+        return view("CommandesAchats/DetaillesCommande/Ajouter_DetailleAchat",compact("commandeAchat","articles") );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $commandeAchatId)
     {
         //
+        DetailCommandeAchat::create([
+        'CommandeAchatID' => $commandeAchatId,
+        'ArticleID' => $request['ArticleID'],
+        'Quantite' => $request['Quantite'],
+        'PrixUnitaire' => $request['PrixUnitaire']
+        ]);
+
+        return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index",["CommandesAchat" => $commandeAchatId]);
     }
 
     /**
@@ -49,7 +68,10 @@ class DetaillesCommandeAchatController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $detailcommandeAchat=Detailcommandeachat::find($id);
+        $articles=Article::all();
+
+        return View ("CommandesAchats/DetaillesCommande/Modifier_DetailleAchat", compact("detailcommandeAchat","articles"));
     }
 
     /**
@@ -58,6 +80,12 @@ class DetaillesCommandeAchatController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+        $detailcommandeAchat=Detailcommandeachat::find($id);
+        $commandeAchatId = $detailcommandeAchat->CommandeAchatID;
+        $detailcommandeAchat->update($request->all());
+
+          return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index",["CommandesAchat" => $commandeAchatId]);
     }
 
     /**
@@ -66,5 +94,14 @@ class DetaillesCommandeAchatController extends Controller
     public function destroy(string $id)
     {
         //
+
+      
+       $detailcommandeachat=Detailcommandeachat::find($id);
+       $commandeAchatId = $detailcommandeachat->CommandeAchatID;
+       $detailcommandeachat->delete();
+
+     
+       
+       return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index",["CommandesAchat" => $commandeAchatId]);
     }
 }

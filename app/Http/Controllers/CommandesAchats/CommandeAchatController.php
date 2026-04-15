@@ -46,7 +46,7 @@ class CommandeAchatController extends Controller
 
             $validated = $request->validate([
                 'FournisseurID' => 'required|exists:fournisseurs,FournisseurID',
-                'etatID'        => 'required|exists:etats,etatID',
+                'etatID'        => 'required|exists:Etat,id',
             ]);
 
             // Création de la commande
@@ -64,12 +64,7 @@ class CommandeAchatController extends Controller
      */
     public function show($commandeAchatID)
     {
-         $commandsAchats=CommandeAchat::find($commandeAchatID);
-       $detaillesCommandesAchats=Detailcommandeachat::where("CommandeAchatID",$commandeAchatID)->get();
-
-     
-
-         return view("CommandesAchats/DetaillesCommande/ListeDetailles", compact("commandsAchats","detaillesCommandesAchats"));
+       
     }
 
     /**
