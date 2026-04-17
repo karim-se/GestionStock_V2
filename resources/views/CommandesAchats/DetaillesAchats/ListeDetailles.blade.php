@@ -2,7 +2,7 @@
 <x-layout>
 
     @push('styles')
-        @vite('resources/css/CommandesAchats/DetaillesAchats.css')
+        @vite('resources/css/CommandesAchats/DetaillesAchats/ListeDetaillesAchats.css')
     @endpush
   
 
@@ -74,7 +74,7 @@
 
 
     @push('scripts')
-      @vite('resources/js/CommandesAchats/DetaillesAchats.js')
+      @vite('resources/js/CommandesAchats/DetaillesAchats/ListeDetaillesAchats.js')
     @endpush
     
 </x-layout>

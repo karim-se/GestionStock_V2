@@ -22,7 +22,7 @@ class DetaillesCommandeAchatController extends Controller
         $detaillesCommandesAchats=$CommandesAchat->detailcommandeachats;
         
 
-         return view("CommandesAchats/DetaillesCommande/ListeDetailles", compact("CommandesAchat","detaillesCommandesAchats"));
+         return view("CommandesAchats/DetaillesAchats/ListeDetailles", compact("CommandesAchat","detaillesCommandesAchats"));
        
       
     }
@@ -36,7 +36,7 @@ class DetaillesCommandeAchatController extends Controller
         $commandeAchat=CommandeAchat::find($commandeAchatId);
         $articles=Article::all();
 
-        return view("CommandesAchats/DetaillesCommande/Ajouter_DetailleAchat",compact("commandeAchat","articles") );
+        return view("CommandesAchats/DetaillesAchats/Ajouter_DetailleAchat",compact("commandeAchat","articles") );
     }
 
     /**
@@ -71,7 +71,7 @@ class DetaillesCommandeAchatController extends Controller
         $detailcommandeAchat=Detailcommandeachat::find($id);
         $articles=Article::all();
 
-        return View ("CommandesAchats/DetaillesCommande/Modifier_DetailleAchat", compact("detailcommandeAchat","articles"));
+        return View ("CommandesAchats/DetaillesAchats/Modifier_DetailleAchat", compact("detailcommandeAchat","articles"));
     }
 
     /**
