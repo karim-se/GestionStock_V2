@@ -1,7 +1,7 @@
 <x-layout>
 
  @push('styles')
-        @vite('resources/css/CommandesAchats/AjouterDetaillesAchat.css')
+        @vite('resources/css/CommandesAchats/DetaillesAchats/AjouterDetaillesAchat.css')
     @endpush
 
    <form  class="form" method="POST" action ="{{ route('DetaillesCommandeAchats.update',[$detailcommandeAchat->DetailAchatID]) }}" >

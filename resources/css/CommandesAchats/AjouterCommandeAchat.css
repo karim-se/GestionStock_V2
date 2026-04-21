@@ -1,6 +1,6 @@
 .form{
-    max-width: 400px;
-    margin: 40px auto;
+    max-width: 1500px;
+    margin: 20px auto;
     padding: 30px;
     border: 1px solid black;
     border-radius: 8px;
@@ -17,7 +17,7 @@
 
 
 
-.form select { 
+.form select, input[type="number"] { 
     padding: 10px; 
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -28,10 +28,88 @@
 
 
 
-input[type="submit"]{
+
+input[type="submit"] {
     padding: 10px;
     width: 100%; 
     border: none;
     border-radius: 6px;
 }
 
+
+
+.addArticle{
+    max-width: 1500px;
+    margin: 10px auto;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 8px;
+
+}
+
+
+/* 🔥 alignement horizontal */
+.ligne-article {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+/* chaque bloc */
+.champ {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* bouton aligné en bas */
+.champ.bouton {
+    padding: 15px;
+    width: 5px; 
+    border: none;
+    border-radius: 6px;
+}
+
+
+ .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .data-table thead th {
+            background-color: #dadcdf;
+            color: #495057;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+
+
+        #duplicate-alert {
+            display: none;
+        }
+
+        #duplicate-alert.show {
+            display: block;
+        }
+
+        .table-container {
+            max-height: 150px; /* ≈ 2 à 3 lignes selon ta hauteur */
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+
+
+        .data-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }

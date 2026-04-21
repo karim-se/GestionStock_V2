@@ -45,12 +45,40 @@ class DetaillesCommandeAchatController extends Controller
     public function store(Request $request, $commandeAchatId)
     {
         //
-        DetailCommandeAchat::create([
+       
+             foreach ($request->articles as $article) {
+        
+       
+    
+        $exists = DetailCommandeAchat::where('CommandeAchatID', $commandeAchatId)
+            ->where('ArticleID', $article['ArticleID'])
+            ->exists();
+        
+             
+        if ($exists) {
+            $nomArticle=Article::find($article['ArticleID'])->NomArticle;
+           
+             return redirect()->back()->with('error', 'L\'article "' . $nomArticle . '" existe déjà dans cette commande.');
+        }
+
+        
+    }
+       
+        
+
+
+       foreach ($request->articles as $article) {
+          
+    DetailCommandeAchat::create([
         'CommandeAchatID' => $commandeAchatId,
-        'ArticleID' => $request['ArticleID'],
-        'Quantite' => $request['Quantite'],
-        'PrixUnitaire' => $request['PrixUnitaire']
-        ]);
+        'ArticleID' => $article['ArticleID'],
+        'Quantite' => $article['Quantite'],
+        'PrixUnitaire' => $article['PrixUnitaire'],
+    ]);
+
+
+   
+  }  
 
         return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index",["CommandesAchat" => $commandeAchatId]);
     }

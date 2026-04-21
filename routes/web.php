@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommandesAchats\CommandeAchatController;
 use App\Http\Controllers\CommandesAchats\DetaillesCommandeAchatController;
+use App\Http\Controllers\AcceuilController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource("/", AcceuilController::class); 
 
 
 

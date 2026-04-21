@@ -7,6 +7,7 @@ use App\Models\CommandeAchat;
 use App\Models\Detailcommandeachat;
 use App\Models\Fournisseur;
 use App\Models\Etat;
+use App\Models\Article;
 
 
 use Illuminate\Http\Request;
@@ -34,7 +35,8 @@ class CommandeAchatController extends Controller
 
         $fournisseurs=Fournisseur::all();
         $etats=Etat::all();
-        return View("CommandesAchats/Ajouter_Achat", compact("fournisseurs", "etats"));
+        $articles=Article::all();
+        return View("CommandesAchats/Ajouter_Achat", compact("fournisseurs", "etats","articles"));
     }
 
     /**
@@ -44,17 +46,43 @@ class CommandeAchatController extends Controller
     {
         //
 
+        
             $validated = $request->validate([
                 'FournisseurID' => 'required|exists:fournisseurs,FournisseurID',
                 'etatID'        => 'required|exists:Etat,id',
-            ]);
+                'articles'      => 'required|array|min:1', 
+        
+        // Validation des éléments internes
+        'articles.*.ArticleID'   => 'required|exists:articles,articleID',
+        'articles.*.Quantite'     => 'required|integer|min:1',
+        'articles.*.PrixUnitaire' => 'required|numeric|min:0',
+    ], 
+    [
+        // Message personnalisé pour le tableau vide
+        'articles.required' => 'Aucun article n\'a été ajouté à cette commande.',
+        
+    ]);
+            
 
             // Création de la commande
-            CommandeAchat::create([
+           $Commandeachat= CommandeAchat::create([
                 'FournisseurID' => $validated['FournisseurID'],
                 'etatID'        => $validated['etatID'],
                 'DateCommande'  => now(),
             ]);
+
+            
+            foreach ($request->articles as $article) {
+                
+            DetailCommandeAchat::create([
+                'CommandeAchatID' => $Commandeachat->CommandeAchatID,
+                'ArticleID' => $article['ArticleID'],
+                'Quantite' => $article['Quantite'],
+                'PrixUnitaire' => $article['PrixUnitaire'],
+            ]);
+
+            }
+            
 
         return redirect()->route("CommandesAchats.index");
     }

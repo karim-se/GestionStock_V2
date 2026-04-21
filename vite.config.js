@@ -10,7 +10,8 @@ export default defineConfig({
                    'resources/css/Articles/ListeArticles.css',
                     'resources/js/Articles/ListeArticles.js',
                     "resources/css/CommandesAchats/ListeAchats.css",
-                    "resources/js/CommandesAchats/ListeAchats.js"
+                    "resources/js/CommandesAchats/ListeAchats.js",
+                    'resources/js/CommandesAchats/Ajouter_Achat.js'
                     
             ],
             refresh: true,
