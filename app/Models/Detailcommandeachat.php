@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Detailcommandeachat
- * 
+ *
  * @property int $DetailAchatID
  * @property int $Quantite
  * @property int $PrixUnitaire
  * @property int $CommandeAchatID
  * @property int $ArticleID
- * 
+ *
  * @property Article $article
  * @property CommandeAchat $commande_achat
  *
@@ -24,31 +24,31 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Detailcommandeachat extends Model
 {
-	protected $table = 'detailcommandeachats';
-	protected $primaryKey = 'DetailAchatID';
-	public $timestamps = false;
+    protected $table = 'detailcommandeachats';
+    protected $primaryKey = 'DetailAchatID';
+    public $timestamps = false;
 
-	protected $casts = [
-		'Quantite' => 'int',
-		'PrixUnitaire' => 'int',
-		'CommandeAchatID' => 'int',
-		'ArticleID' => 'int'
-	];
+    protected $casts = [
+        'Quantite' => 'int',
+        'PrixUnitaire' => 'int',
+        'CommandeAchatID' => 'int',
+        'ArticleID' => 'int'
+    ];
 
-	protected $fillable = [
-		'Quantite',
-		'PrixUnitaire',
-		'CommandeAchatID',
-		'ArticleID'
-	];
+    protected $fillable = [
+        'Quantite',
+        'PrixUnitaire',
+        'CommandeAchatID',
+        'ArticleID'
+    ];
 
-	public function article()
-	{
-		return $this->belongsTo(Article::class, 'ArticleID');
-	}
+    public function article()
+    {
+        return $this->belongsTo(Article::class, 'ArticleID');
+    }
 
-	public function commande_achat()
-	{
-		return $this->belongsTo(CommandeAchat::class, 'CommandeAchatID');
-	}
+    public function commande_achat()
+    {
+        return $this->belongsTo(CommandeAchat::class, 'CommandeAchatID');
+    }
 }

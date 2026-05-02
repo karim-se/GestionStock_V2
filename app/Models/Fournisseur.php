@@ -11,34 +11,34 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Fournisseur
- * 
+ *
  * @property int $FournisseurID
  * @property string $NomFournisseur
  * @property string|null $Adresse
  * @property string|null $Telephone
  * @property string|null $Email
  * @property string|null $Role
- * 
+ *
  * @property Collection|CommandeAchat[] $commande_achats
  *
  * @package App\Models
  */
 class Fournisseur extends Model
 {
-	protected $table = 'fournisseurs';
-	protected $primaryKey = 'FournisseurID';
-	public $timestamps = false;
+    protected $table = 'fournisseurs';
+    protected $primaryKey = 'FournisseurID';
+    public $timestamps = false;
 
-	protected $fillable = [
-		'NomFournisseur',
-		'Adresse',
-		'Telephone',
-		'Email',
-		'Role'
-	];
+    protected $fillable = [
+        'NomFournisseur',
+        'Adresse',
+        'Telephone',
+        'Email',
+        'Role'
+    ];
 
-	public function commande_achats()
-	{
-		return $this->hasMany(CommandeAchat::class, 'FournisseurID');
-	}
+    public function commande_achats()
+    {
+        return $this->hasMany(CommandeAchat::class, 'FournisseurID');
+    }
 }

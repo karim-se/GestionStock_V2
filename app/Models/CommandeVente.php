@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CommandeVente
- * 
+ *
  * @property int $CommandeVenteID
  * @property Carbon $DateCommande
  * @property int $ClientID
  * @property int $etatID
- * 
+ *
  * @property Client $client
  * @property Etat $etat
  * @property Collection|Detailcommandevente[] $detailcommandeventes
@@ -26,34 +26,34 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CommandeVente extends Model
 {
-	protected $table = 'commandeVentes';
-	protected $primaryKey = 'CommandeVenteID';
-	public $timestamps = false;
+    protected $table = 'commandeVentes';
+    protected $primaryKey = 'CommandeVenteID';
+    public $timestamps = false;
 
-	protected $casts = [
-		'DateCommande' => 'datetime',
-		'ClientID' => 'int',
-		'etatID' => 'int'
-	];
+    protected $casts = [
+        'DateCommande' => 'datetime',
+        'ClientID' => 'int',
+        'etatID' => 'int'
+    ];
 
-	protected $fillable = [
-		'DateCommande',
-		'ClientID',
-		'etatID'
-	];
+    protected $fillable = [
+        'DateCommande',
+        'ClientID',
+        'etatID'
+    ];
 
-	public function client()
-	{
-		return $this->belongsTo(Client::class, 'ClientID');
-	}
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'ClientID');
+    }
 
-	public function etat()
-	{
-		return $this->belongsTo(Etat::class, 'etatID');
-	}
+    public function etat()
+    {
+        return $this->belongsTo(Etat::class, 'etatID');
+    }
 
-	public function detailcommandeventes()
-	{
-		return $this->hasMany(Detailcommandevente::class, 'CommandeVenteID');
-	}
+    public function detailcommandeventes()
+    {
+        return $this->hasMany(Detailcommandevente::class, 'CommandeVenteID');
+    }
 }

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('detailcommandeventes', function (Blueprint $table) {
 
-            $table->increments('DetailVenteID'); 
+            $table->increments('DetailVenteID');
             // int(36) AI PK → en MySQL int max = 11 affichage,
             // Laravel increments() crée INT UNSIGNED AUTO_INCREMENT
 

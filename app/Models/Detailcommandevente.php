@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Detailcommandevente
- * 
+ *
  * @property int $DetailVenteID
  * @property int $CommandeVenteID
  * @property int $ArticleID
  * @property int $PrixUnitaire
  * @property int $Quantite
- * 
+ *
  * @property Article $article
  * @property CommandeVente $commande_vente
  *
@@ -24,31 +24,31 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Detailcommandevente extends Model
 {
-	protected $table = 'detailcommandeventes';
-	protected $primaryKey = 'DetailVenteID';
-	public $timestamps = false;
+    protected $table = 'detailcommandeventes';
+    protected $primaryKey = 'DetailVenteID';
+    public $timestamps = false;
 
-	protected $casts = [
-		'CommandeVenteID' => 'int',
-		'ArticleID' => 'int',
-		'PrixUnitaire' => 'int',
-		'Quantite' => 'int'
-	];
+    protected $casts = [
+        'CommandeVenteID' => 'int',
+        'ArticleID' => 'int',
+        'PrixUnitaire' => 'int',
+        'Quantite' => 'int'
+    ];
 
-	protected $fillable = [
-		'CommandeVenteID',
-		'ArticleID',
-		'PrixUnitaire',
-		'Quantite'
-	];
+    protected $fillable = [
+        'CommandeVenteID',
+        'ArticleID',
+        'PrixUnitaire',
+        'Quantite'
+    ];
 
-	public function article()
-	{
-		return $this->belongsTo(Article::class, 'ArticleID');
-	}
+    public function article()
+    {
+        return $this->belongsTo(Article::class, 'ArticleID');
+    }
 
-	public function commande_vente()
-	{
-		return $this->belongsTo(CommandeVente::class, 'CommandeVenteID');
-	}
+    public function commande_vente()
+    {
+        return $this->belongsTo(CommandeVente::class, 'CommandeVenteID');
+    }
 }

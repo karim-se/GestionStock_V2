@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CommandeAchat
- * 
+ *
  * @property int $CommandeAchatID
  * @property Carbon $DateCommande
  * @property int $FournisseurID
  * @property int $etatID
- * 
+ *
  * @property Etat $etat
  * @property Fournisseur $fournisseur
  * @property Collection|Detailcommandeachat[] $detailcommandeachats
@@ -26,34 +26,34 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CommandeAchat extends Model
 {
-	protected $table = 'commandeAchats';
-	protected $primaryKey = 'CommandeAchatID';
-	public $timestamps = false;
+    protected $table = 'commandeAchats';
+    protected $primaryKey = 'CommandeAchatID';
+    public $timestamps = false;
 
-	protected $casts = [
-		'DateCommande' => 'datetime',
-		'FournisseurID' => 'int',
-		'etatID' => 'int'
-	];
+    protected $casts = [
+        'DateCommande' => 'datetime',
+        'FournisseurID' => 'int',
+        'etatID' => 'int'
+    ];
 
-	protected $fillable = [
-		'DateCommande',
-		'FournisseurID',
-		'etatID'
-	];
+    protected $fillable = [
+        'DateCommande',
+        'FournisseurID',
+        'etatID'
+    ];
 
-	public function etat()
-	{
-		return $this->belongsTo(Etat::class, 'etatID');
-	}
+    public function etat()
+    {
+        return $this->belongsTo(Etat::class, 'etatID');
+    }
 
-	public function fournisseur()
-	{
-		return $this->belongsTo(Fournisseur::class, 'FournisseurID');
-	}
+    public function fournisseur()
+    {
+        return $this->belongsTo(Fournisseur::class, 'FournisseurID');
+    }
 
-	public function detailcommandeachats()
-	{
-		return $this->hasMany(Detailcommandeachat::class ,'CommandeAchatID');
-	}
+    public function detailcommandeachats()
+    {
+        return $this->hasMany(Detailcommandeachat::class, 'CommandeAchatID');
+    }
 }

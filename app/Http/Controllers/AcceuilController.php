@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Article;
 use App\Models\CommandeAchat;
 
@@ -14,29 +13,28 @@ class AcceuilController extends Controller
      */
     public function index()
     {
-        
-            // 1. Total des articles (Somme de la colonne quantité)
+
+        // 1. Total des articles (Somme de la colonne quantité)
         $totalArticles = Article::sum('StockActuel');
 
         // 2. Articles en rupture (Quantité égale à 0)
         $alertesRupture = Article::where('StockActuel', '<=', 0)->count();
 
-        
+
 
         // 3. Valeur totale du stock (Prix * Quantité)
         // Note : On peut utiliser selectRaw pour plus de performance
-        $CommandesEnCours = CommandeAchat::where("etatID","=",1)->count();
+        $CommandesEnCours = CommandeAchat::where("etatID", "=", 1)->count();
 
         // 4. Les 5 derniers mouvements ou articles ajoutés
-       
+
 
         return view('Accueil', compact(
-            'totalArticles', 
-            'alertesRupture', 
-            'CommandesEnCours', 
-           
+            'totalArticles',
+            'alertesRupture',
+            'CommandesEnCours',
         ));
-     
+
     }
 
     /**

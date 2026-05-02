@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Categorie;
-
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -14,11 +13,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-     
-    $articles=Article::with("categorie")->get();
-    
 
-    return view("Articles/ListeArticles", compact("articles"));
+        $articles = Article::with("categorie")->get();
+
+
+        return view("Articles/ListeArticles", compact("articles"));
     }
 
     /**
@@ -27,7 +26,7 @@ class ArticleController extends Controller
     public function create()
     {
         //
-        $categories=Categorie::all();
+        $categories = Categorie::all();
 
         return View("Articles.Ajouter_Article", compact("categories"));
     }
@@ -39,18 +38,18 @@ class ArticleController extends Controller
     {
         //
 
-         // Validation des données
-            $validated = $request->validate([
-                'NomArticle'   => 'required|string|max:255',
-                'CategorieID'  => 'required|exists:categorie,id',
-                'CodeArticle'  => 'required|string|max:100|unique:articles,CodeArticle',
-                'Description'  => 'nullable|string',
-            ]);
+        // Validation des données
+        $validated = $request->validate([
+            'NomArticle'   => 'required|string|max:255',
+            'CategorieID'  => 'required|exists:categorie,id',
+            'CodeArticle'  => 'required|string|max:100|unique:articles,CodeArticle',
+            'Description'  => 'nullable|string',
+        ]);
 
-            // Création de l'article
-            Article::create($validated);
+        // Création de l'article
+        Article::create($validated);
 
-         return redirect()->route('Articles.index'); 
+        return redirect()->route('Articles.index');
     }
 
     /**
@@ -66,8 +65,8 @@ class ArticleController extends Controller
      */
     public function edit(string $id)
     {
-        $article=Article::find($id);
-        $categories=Categorie::all();
+        $article = Article::find($id);
+        $categories = Categorie::all();
         return view("Articles/Modifier_Article", compact("article", "categories"));
     }
 
@@ -77,11 +76,11 @@ class ArticleController extends Controller
     public function update(Request $request, string $id)
     {
         //
-      
-        $article=Article::find($id);
-         $article->update($request->all());
 
-         return redirect()->route("Articles.index");
+        $article = Article::find($id);
+        $article->update($request->all());
+
+        return redirect()->route("Articles.index");
 
     }
 
@@ -90,7 +89,7 @@ class ArticleController extends Controller
      */
     public function destroy(string $id)
     {
-         $article=Article::find($id);
+        $article = Article::find($id);
         $article->delete();
 
         return redirect()->route("Articles.index");

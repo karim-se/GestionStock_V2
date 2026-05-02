@@ -1,21 +1,15 @@
-  
-function ShowDeleteWindow(CommandeAchatID){
-    let Supprimer=document.getElementById("SupprimerForm")
+function ShowDeleteWindow(CommandeAchatID) {
+    let Supprimer = document.getElementById("SupprimerForm");
     Supprimer.style.display = "block";
 
-    Supprimer.action = `/CommandesAchats/${CommandeAchatID}`; 
-
+    Supprimer.action = `/CommandesAchats/${CommandeAchatID}`;
 }
 
-
-function HideDeleteWindow(){
-    let Supprimer=document.getElementById("SupprimerForm")
+function HideDeleteWindow() {
+    let Supprimer = document.getElementById("SupprimerForm");
     Supprimer.style.display = "none";
-
 }
-
 
 // rendre les fonctions globales (important)
 window.ShowDeleteWindow = ShowDeleteWindow;
 window.HideDeleteWindow = HideDeleteWindow;
-

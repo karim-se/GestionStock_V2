@@ -4,7 +4,6 @@ namespace App\Http\Controllers\CommandesAchats;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\CommandeAchat;
 use App\Models\Detailcommandeachat;
 use App\Models\Article;
@@ -18,13 +17,13 @@ class DetaillesCommandeAchatController extends Controller
     {
         //
 
-        
-        $detaillesCommandesAchats=$CommandesAchat->detailcommandeachats;
-        
 
-         return view("CommandesAchats/DetaillesAchats/ListeDetailles", compact("CommandesAchat","detaillesCommandesAchats"));
-       
-      
+        $detaillesCommandesAchats = $CommandesAchat->detailcommandeachats;
+
+
+        return view("CommandesAchats/DetaillesAchats/ListeDetailles", compact("CommandesAchat", "detaillesCommandesAchats"));
+
+
     }
 
     /**
@@ -33,10 +32,10 @@ class DetaillesCommandeAchatController extends Controller
     public function create($commandeAchatId)
     {
         //
-        $commandeAchat=CommandeAchat::find($commandeAchatId);
-        $articles=Article::all();
+        $commandeAchat = CommandeAchat::find($commandeAchatId);
+        $articles = Article::all();
 
-        return view("CommandesAchats/DetaillesAchats/Ajouter_DetailleAchat",compact("commandeAchat","articles") );
+        return view("CommandesAchats/DetaillesAchats/Ajouter_DetailleAchat", compact("commandeAchat", "articles"));
     }
 
     /**
@@ -45,42 +44,57 @@ class DetaillesCommandeAchatController extends Controller
     public function store(Request $request, $commandeAchatId)
     {
         //
-       
-             foreach ($request->articles as $article) {
-        
-       
-    
-        $exists = DetailCommandeAchat::where('CommandeAchatID', $commandeAchatId)
-            ->where('ArticleID', $article['ArticleID'])
-            ->exists();
-        
-             
-        if ($exists) {
-            $nomArticle=Article::find($article['ArticleID'])->NomArticle;
-           
-             return redirect()->back()->with('error', 'L\'article "' . $nomArticle . '" existe déjà dans cette commande.');
+
+
+        $validated = $request->validate([
+
+            'articles'                => 'required|array|min:1',
+            'articles.*.ArticleID'    => 'required|exists:articles,articleID',
+            'articles.*.Quantite'     => 'required|integer|min:1',
+            'articles.*.PrixUnitaire' => 'required|numeric|min:0',
+        ], [
+            'articles.required' => 'Aucun article n\'a été ajouté à cette commande.',
+        ]);
+
+        foreach ($validated['articles'] as $article) {
+
+
+
+            $exists = DetailCommandeAchat::where('CommandeAchatID', $commandeAchatId)
+                ->where('ArticleID', $article['ArticleID'])
+                ->exists();
+
+
+
+
+            if ($exists) {
+                $nomArticle = Article::find($article['ArticleID'])->NomArticle;
+
+                return redirect()->back()->withErrors(['article_exists' => 'L\'article "' . $nomArticle . '" existe déjà.']);
+            }
+
+
         }
 
-        
-    }
-       
-        
 
 
-       foreach ($request->articles as $article) {
-          
-    DetailCommandeAchat::create([
-        'CommandeAchatID' => $commandeAchatId,
-        'ArticleID' => $article['ArticleID'],
-        'Quantite' => $article['Quantite'],
-        'PrixUnitaire' => $article['PrixUnitaire'],
-    ]);
 
 
-   
-  }  
 
-        return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index",["CommandesAchat" => $commandeAchatId]);
+        foreach ($validated['articles'] as $article) {
+
+            DetailCommandeAchat::create([
+                'CommandeAchatID' => $commandeAchatId,
+                'ArticleID' => $article['ArticleID'],
+                'Quantite' => $article['Quantite'],
+                'PrixUnitaire' => $article['PrixUnitaire'],
+            ]);
+
+
+
+        }
+
+        return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index", ["CommandesAchat" => $commandeAchatId]);
     }
 
     /**
@@ -96,10 +110,10 @@ class DetaillesCommandeAchatController extends Controller
      */
     public function edit(string $id)
     {
-        $detailcommandeAchat=Detailcommandeachat::find($id);
-        $articles=Article::all();
+        $detailcommandeAchat = Detailcommandeachat::find($id);
+        $articles = Article::all();
 
-        return View ("CommandesAchats/DetaillesAchats/Modifier_DetailleAchat", compact("detailcommandeAchat","articles"));
+        return View("CommandesAchats/DetaillesAchats/Modifier_DetailleAchat", compact("detailcommandeAchat", "articles"));
     }
 
     /**
@@ -109,11 +123,11 @@ class DetaillesCommandeAchatController extends Controller
     {
         //
 
-        $detailcommandeAchat=Detailcommandeachat::find($id);
+        $detailcommandeAchat = Detailcommandeachat::find($id);
         $commandeAchatId = $detailcommandeAchat->CommandeAchatID;
         $detailcommandeAchat->update($request->all());
 
-          return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index",["CommandesAchat" => $commandeAchatId]);
+        return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index", ["CommandesAchat" => $commandeAchatId]);
     }
 
     /**
@@ -123,13 +137,13 @@ class DetaillesCommandeAchatController extends Controller
     {
         //
 
-      
-       $detailcommandeachat=Detailcommandeachat::find($id);
-       $commandeAchatId = $detailcommandeachat->CommandeAchatID;
-       $detailcommandeachat->delete();
 
-     
-       
-       return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index",["CommandesAchat" => $commandeAchatId]);
+        $detailcommandeachat = Detailcommandeachat::find($id);
+        $commandeAchatId = $detailcommandeachat->CommandeAchatID;
+        $detailcommandeachat->delete();
+
+
+
+        return redirect()->route("CommandesAchats.DetaillesCommandeAchats.index", ["CommandesAchat" => $commandeAchatId]);
     }
 }
